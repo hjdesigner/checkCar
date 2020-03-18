@@ -13,11 +13,9 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome';
-Icon.loadFont();
 const Tab = createBottomTabNavigator();
 
-import { Header } from './src/componentes'
+import { Header, Icon } from './src/componentes'
 import { Home, Cadastro } from './src/pages'
 
 const App: () => React$Node = () => {

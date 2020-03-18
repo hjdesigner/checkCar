@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import RNPickerSelect from 'react-native-picker-select'
-import Icon from 'react-native-vector-icons/FontAwesome'
-Icon.loadFont();
 import { Platform, StyleSheet, ScrollView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Title, Icon } from '../../componentes/'
 import {
   Container,
-  Title,
-  BarTitle,
   Fields,
   TextFields,
   InputField,
@@ -98,9 +95,8 @@ const Cadastro = () => {
     <Container>
       <ScrollView>
         <Title>
-          <Icon name="car" size={24} color="#000" /> Cadastro
+          <Icon name='car' size={24} color='#000' /> Cadastro
         </Title>
-        <BarTitle />
         <Fields>
           <TextFields>Marca</TextFields>
           <RNPickerSelect
