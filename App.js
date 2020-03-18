@@ -45,7 +45,8 @@ const App: () => React$Node = () => {
               tabBarLabel: 'Home',
               tabBarIcon: () => (
                 <Icon name="car" size={18} color="#000" />
-              ),         
+              ),
+              lazy: true,   
             }}
           />
           <Tab.Screen
@@ -55,7 +56,8 @@ const App: () => React$Node = () => {
               tabBarLabel: 'Cadastro',
               tabBarIcon: () => (
                 <Icon name="cog" size={18} color="#000" />
-              )
+              ),
+              lazy: false,
             }}
           />
         </Tab.Navigator>
