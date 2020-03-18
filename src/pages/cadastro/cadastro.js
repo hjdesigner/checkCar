@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import RNPickerSelect from 'react-native-picker-select'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { Platform, StyleSheet, ScrollView } from 'react-native';
+Icon.loadFont();
+import { Platform, StyleSheet, ScrollView, Alert } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   Container,
   Title,
@@ -47,6 +49,50 @@ const Cadastro = () => {
   const [modelYear, setModelYear] = useState('')
   const [color, setColor] = useState('')
   const [km, setKm] = useState('')
+  const [edit, setEdit] = useState(false);
+
+  useEffect(() => {
+    getRegister()
+  },[]);
+
+  const getRegister = async () => {
+    try {
+      const value = await AsyncStorage.getItem('register')
+      if (value !== null) {
+        const jsonValue = JSON.parse(value);
+        setBrand(jsonValue.brand)
+        setModel(jsonValue.model)
+        setBoard(jsonValue.board)
+        setYearOfManufacture(jsonValue.yearOfManufacture)
+        setModelYear(jsonValue.modelYear)
+        setColor(jsonValue.color)
+        setKm(jsonValue.km)
+        setEdit(true)
+        
+      }
+    } catch (e) {
+      console.warn(e)
+    }
+  }
+
+  const handleRegister = async () => {
+    const data = {
+      brand,
+      model,
+      board,
+      yearOfManufacture,
+      modelYear,
+      color,
+      km,
+    }
+    
+    try {
+      await AsyncStorage.setItem('register', JSON.stringify(data))
+      Alert.alert('Veiculo cadastrado com sucesso')
+    } catch (error) {
+      Alert.alert('Houve um erro, tente novamente mais tarde!')
+    }
+  }
 
   return (
     <Container>
@@ -114,8 +160,18 @@ const Cadastro = () => {
           <InputField value={km} placeholder='300' onChangeText={(text) => setKm(text)} />
         </Fields>
         <FieldButton>
-          <Button>
-            <Register>Cadastrar</Register>
+          <Button disabled={
+            brand === '' ||
+            model === '' ||
+            board === '' ||
+            yearOfManufacture === '' ||
+            modelYear === '' ||
+            color === '' ||
+            km === ''
+          }
+          onPress={handleRegister}
+          >
+            <Register>{edit ? 'Editar' : 'Cadastrar'}</Register>
           </Button>
         </FieldButton>
       </ScrollView>

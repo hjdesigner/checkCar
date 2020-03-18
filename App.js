@@ -14,6 +14,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
+Icon.loadFont();
 const Tab = createBottomTabNavigator();
 
 import { Header } from './src/componentes'
