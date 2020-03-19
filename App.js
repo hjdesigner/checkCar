@@ -17,6 +17,7 @@ const Tab = createBottomTabNavigator();
 
 import { Header, Icon } from './src/componentes'
 import { Home, Cadastro } from './src/pages'
+import { VehicleProvider } from './src/context'
 
 const App: () => React$Node = () => {
   let heightIos = 0;
@@ -31,36 +32,38 @@ const App: () => React$Node = () => {
           <Header />
         </View>
         
-        <Tab.Navigator
-          initialRouteName="Home"
-          tabBarOptions={{
-            activeTintColor: '#e91e63',
-          }}
-        >
-          <Tab.Screen
-            name="Home"
-            component={Home}          
-            options={{
-              title: 'Home',
-              tabBarLabel: 'Home',
-              tabBarIcon: () => (
-                <Icon name="car" size={18} color="#000" />
-              ),
-              lazy: true,   
+        <VehicleProvider>
+          <Tab.Navigator
+            initialRouteName="Home"
+            tabBarOptions={{
+              activeTintColor: '#e91e63',
             }}
-          />
-          <Tab.Screen
-            name="Cadastro"
-            component={Cadastro}
-            options={{
-              tabBarLabel: 'Cadastro',
-              tabBarIcon: () => (
-                <Icon name="cog" size={18} color="#000" />
-              ),
-              lazy: false,
-            }}
-          />
-        </Tab.Navigator>
+          >
+            <Tab.Screen
+              name="Home"
+              component={Home}          
+              options={{
+                title: 'Home',
+                tabBarLabel: 'Home',
+                tabBarIcon: () => (
+                  <Icon name="car" size={18} color="#000" />
+                ),
+                lazy: true,   
+              }}
+            />
+            <Tab.Screen
+              name="Cadastro"
+              component={Cadastro}
+              options={{
+                tabBarLabel: 'Cadastro',
+                tabBarIcon: () => (
+                  <Icon name="cog" size={18} color="#000" />
+                ),
+                lazy: false,
+              }}
+            />
+          </Tab.Navigator>
+        </VehicleProvider>
       </NavigationContainer>
   );
 };

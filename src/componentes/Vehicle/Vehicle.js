@@ -2,23 +2,35 @@ import React from 'react'
 import {
   Container,
   TextVehicle,
+  ContainerLoader,
 } from './style'
+import { Icon } from '../../componentes/'
+import { useVehicle } from '../../hooks'
 
-const Vehicle = ({ item }) => {
+const Vehicle = () => {
+  const { vehicleDate, loaderVehicle } = useVehicle()
 
   return (
     <>
-      <Container>
-        <TextVehicle>{item.brand} {item.model}</TextVehicle>
-      </Container>
-      <Container>
-        <TextVehicle>
-          {item.yearOfManufacture} / {item.modelYear} - {item.color} - {item.board}
-        </TextVehicle>
-      </Container>
-      <Container>
-        <TextVehicle>Você roda {item.km} km por mês</TextVehicle>
-      </Container>
+      {loaderVehicle ? (
+        <ContainerLoader>
+          <Icon name='spinner' size={24} color='#000' />
+        </ContainerLoader>
+      ) : (
+        <>
+          <Container>
+            <TextVehicle>{vehicleDate.brand} {vehicleDate.model}</TextVehicle>
+          </Container>
+          <Container>
+            <TextVehicle>
+              {vehicleDate.yearOfManufacture} / {vehicleDate.modelYear} - {vehicleDate.color} - {vehicleDate.board}
+            </TextVehicle>
+          </Container>
+          <Container>
+            <TextVehicle>Você roda {vehicleDate.km} km por mês</TextVehicle>
+          </Container>
+        </>
+      )}
     </>
   )
 }
