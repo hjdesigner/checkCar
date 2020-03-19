@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import {
   View,
-  Platform,
 } from 'react-native';
 import { Title, Icon, Vehicle } from '../../componentes/'
 import { useVehicle } from '../../hooks'
@@ -21,18 +20,6 @@ const Home = ({ navigation }) => {
       <Vehicle />
     </View>
   )
-}
-
-Home.navigationOptions = () => {
-  const opcoes = {
-    title: 'Home'
-  }
-  if(Platform.OS == "android"){
-    opcoes.header = null;
-  }
-  
-
-  return opcoes;
 }
 
 export default Home;

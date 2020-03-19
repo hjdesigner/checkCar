@@ -16,7 +16,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
 import { Header, Icon } from './src/componentes'
-import { Home, Cadastro } from './src/pages'
+import { Home, Cadastro, Combustivel } from './src/pages'
 import { VehicleProvider } from './src/context'
 
 const App: () => React$Node = () => {
@@ -43,10 +43,20 @@ const App: () => React$Node = () => {
               name="Home"
               component={Home}          
               options={{
-                title: 'Home',
                 tabBarLabel: 'Home',
                 tabBarIcon: () => (
                   <Icon name="car" size={18} color="#000" />
+                ),
+                lazy: true,   
+              }}
+            />
+            <Tab.Screen
+              name="Combustivel"
+              component={Combustivel}          
+              options={{
+                tabBarLabel: 'Combustivel',
+                tabBarIcon: () => (
+                  <Icon name='money' size={18} color="#000" />
                 ),
                 lazy: true,   
               }}
