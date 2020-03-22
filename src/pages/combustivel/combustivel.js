@@ -13,6 +13,7 @@ import {
   Register,
   TextKm,
 } from './style'
+import { useFuel } from '../../hooks'
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
@@ -38,11 +39,38 @@ const pickerSelectStyles = StyleSheet.create({
 });
 
 const Combustivel = () => {
+  const { saveFuel } = useFuel()
   const [liters, setLiters] = useState('')
   const [km, setKm] = useState('')
   const [value, setValue] = useState('')
   const [date, setDate] = useState(new Date())
   const [post, setPost] = useState('')
+  const [average, setAverage] = useState('')
+
+  const handleSave = () => {
+    const data = {
+      liters,
+      km,
+      value,
+      date,
+      post,
+      average,
+    }
+    saveFuel(data).then(() => {
+      setLiters('')
+      setKm('')
+      setValue('')
+      setDate(new Date())
+      setPost('')
+      setAverage('')
+    })
+  }
+
+  const handleAverage = () => {
+    if (liters !== '' && km !== '') {
+      setAverage(km / liters)
+    }
+  }
 
   return (
     <Container>
@@ -52,15 +80,23 @@ const Combustivel = () => {
         </Title>
         <Fields>
           <TextFields>Quantidade de litros abastecido</TextFields>
-          <InputField value={liters} placeholder='10' onChangeText={(text) => setLiters(text)} />
+          <InputField
+            value={liters}
+            placeholder='10'
+            onChangeText={(text) => setLiters(text.replace(/[^\d/]/g, ""))}
+            onBlur={handleAverage} />
         </Fields>
         <Fields>
           <TextFields>KM rodado</TextFields>
-          <InputField value={km} placeholder='350' onChangeText={(text) => setKm(text)} />
+          <InputField
+            value={km}
+            placeholder='350'
+            onChangeText={(text) => setKm(text.replace(/[^\d/]/g, ""))}
+            onBlur={handleAverage} />
         </Fields>
         <Fields>
           <TextFields>Valor total</TextFields>
-          <InputField value={value} placeholder='10,30' onChangeText={(text) => setValue(text)} />
+          <InputField value={value} placeholder='10,30' onChangeText={(text) => setValue(text.replace(/[^\d\,\./]/g, ""))} />
         </Fields>
         <Fields>
           <TextFields>Data do abastecimento</TextFields>
@@ -85,15 +121,16 @@ const Combustivel = () => {
           />
         </Fields>
         <Fields>
-          <TextFields>A media de consumo do seu veiculo foi:</TextFields>
-          <TextKm>12.6 Km por litro</TextKm>
+          <TextFields>A média de consumo do seu veiculo foi:</TextFields>
+          <TextKm>{average} Km por litro</TextKm>
         </Fields>
         <FieldButton>
           <Button disabled={
             liters === '' ||
             km === '' ||
             post === ''
-          }>
+          }
+          onPress={handleSave}>
             <Register>Cadastrar</Register>
           </Button>
         </FieldButton>

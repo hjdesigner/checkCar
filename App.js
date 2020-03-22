@@ -17,7 +17,7 @@ const Tab = createBottomTabNavigator();
 
 import { Header, Icon } from './src/componentes'
 import { Home, Cadastro, Combustivel } from './src/pages'
-import { VehicleProvider } from './src/context'
+import { VehicleProvider, FuelProvider } from './src/context'
 
 const App: () => React$Node = () => {
   let heightIos = 0;
@@ -33,46 +33,48 @@ const App: () => React$Node = () => {
         </View>
         
         <VehicleProvider>
-          <Tab.Navigator
-            initialRouteName="Home"
-            tabBarOptions={{
-              activeTintColor: '#e91e63',
-            }}
-          >
-            <Tab.Screen
-              name="Home"
-              component={Home}          
-              options={{
-                tabBarLabel: 'Home',
-                tabBarIcon: () => (
-                  <Icon name="car" size={18} color="#000" />
-                ),
-                lazy: true,   
+          <FuelProvider>
+            <Tab.Navigator
+              initialRouteName="Home"
+              tabBarOptions={{
+                activeTintColor: '#e91e63',
               }}
-            />
-            <Tab.Screen
-              name="Combustivel"
-              component={Combustivel}          
-              options={{
-                tabBarLabel: 'Combustivel',
-                tabBarIcon: () => (
-                  <Icon name='money' size={18} color="#000" />
-                ),
-                lazy: true,   
-              }}
-            />
-            <Tab.Screen
-              name="Cadastro"
-              component={Cadastro}
-              options={{
-                tabBarLabel: 'Cadastro',
-                tabBarIcon: () => (
-                  <Icon name="cog" size={18} color="#000" />
-                ),
-                lazy: false,
-              }}
-            />
-          </Tab.Navigator>
+            >
+              <Tab.Screen
+                name="Home"
+                component={Home}          
+                options={{
+                  tabBarLabel: 'Home',
+                  tabBarIcon: () => (
+                    <Icon name="car" size={18} color="#000" />
+                  ),
+                  lazy: true,   
+                }}
+              />
+              <Tab.Screen
+                name="Combustivel"
+                component={Combustivel}          
+                options={{
+                  tabBarLabel: 'Combustivel',
+                  tabBarIcon: () => (
+                    <Icon name='money' size={18} color="#000" />
+                  ),
+                  lazy: true,   
+                }}
+              />
+              <Tab.Screen
+                name="Cadastro"
+                component={Cadastro}
+                options={{
+                  tabBarLabel: 'Cadastro',
+                  tabBarIcon: () => (
+                    <Icon name="cog" size={18} color="#000" />
+                  ),
+                  lazy: false,
+                }}
+              />
+            </Tab.Navigator>
+          </FuelProvider>
         </VehicleProvider>
       </NavigationContainer>
   );
