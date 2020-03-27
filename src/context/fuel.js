@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react'
-import { Alert } from 'react-native';
+import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 
 const FuelContext = createContext()
@@ -7,27 +7,33 @@ const FuelContext = createContext()
 function FuelProvider ({ children }) {
   const [fuel, setFuel] = useState([])
 
-  /* const getRegister = async () => {
+  const getFuel = async () => {
     try {
       const value = await AsyncStorage.getItem('fuel')
       if (value !== null) {
         const jsonValue = JSON.parse(value);
-        setVehicleDate(jsonValue)
-        setLoaderVehicle(false)
-      } else {
-        Alert.alert('Você precisa cadastrar um veiculo')
-        navigation.navigate('Cadastro')
+        console.log(jsonValue)
       }
     } catch (e) {
       Alert.alert('Houve um erro, tente novamente mais tarde!')
     }
-  } */
+  }
 
   const saveFuel = async (value) => {
-    await setFuel(prevState => [...prevState, value])
-
     try {
-      await AsyncStorage.setItem('fuel', JSON.stringify(fuel))
+      const valueStorage = await AsyncStorage.getItem('fuell')
+      
+      if (valueStorage !== null) {
+        const item = JSON.parse(valueStorage)
+        item.push(value)
+        await setFuel(item)
+        await AsyncStorage.setItem('fuel', JSON.stringify(item))        
+      } else {
+        const item = [];
+        item.push(value);
+        await setFuel(item)
+        await AsyncStorage.setItem('fuell', JSON.stringify(item))
+      }
       Alert.alert('Combustivel cadastrado com sucesso')
     } catch (e) {
       Alert.alert('Houve um erro, tente novamente mais tarde!')
@@ -38,6 +44,7 @@ function FuelProvider ({ children }) {
     <FuelContext.Provider value={{
       fuel,
       saveFuel,
+      getFuel,
     }}>
       {children}
     </FuelContext.Provider>

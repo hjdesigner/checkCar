@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ScrollView, StyleSheet } from 'react-native';
 import DatePicker from 'react-native-date-picker'
 import RNPickerSelect from 'react-native-picker-select'
@@ -39,13 +39,17 @@ const pickerSelectStyles = StyleSheet.create({
 });
 
 const Combustivel = () => {
-  const { saveFuel } = useFuel()
+  const { saveFuel, getFuel } = useFuel()
   const [liters, setLiters] = useState('')
   const [km, setKm] = useState('')
   const [value, setValue] = useState('')
   const [date, setDate] = useState(new Date())
   const [post, setPost] = useState('')
-  const [average, setAverage] = useState('')
+  const [average, setAverage] = useState(0.00)
+
+  useEffect(() => {
+    getFuel()
+  }, [])
 
   const handleSave = () => {
     const data = {
@@ -62,7 +66,7 @@ const Combustivel = () => {
       setValue('')
       setDate(new Date())
       setPost('')
-      setAverage('')
+      setAverage(0.00)
     })
   }
 
@@ -122,7 +126,7 @@ const Combustivel = () => {
         </Fields>
         <Fields>
           <TextFields>A média de consumo do seu veiculo foi:</TextFields>
-          <TextKm>{average} Km por litro</TextKm>
+          <TextKm>{average.toFixed(2)} Km por litro</TextKm>
         </Fields>
         <FieldButton>
           <Button disabled={

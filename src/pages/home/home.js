@@ -4,10 +4,11 @@ import {
 } from 'react-native';
 import { Title, Icon, Vehicle } from '../../componentes/'
 import { useVehicle } from '../../hooks'
+import AsyncStorage from '@react-native-community/async-storage'
 
 const Home = ({ navigation }) => {
   const { getRegister } = useVehicle()
-  
+
   useEffect(() => {
     getRegister()
   }, [])
