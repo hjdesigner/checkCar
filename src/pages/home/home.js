@@ -1,25 +1,33 @@
 import React, { useEffect } from 'react'
 import {
-  View,
+  ScrollView,
 } from 'react-native';
-import { Title, Icon, Vehicle } from '../../componentes/'
-import { useVehicle } from '../../hooks'
-import AsyncStorage from '@react-native-community/async-storage'
+import {
+  Title,
+  Icon,
+  Vehicle,
+  ConsumptionChart,
+} from '../../componentes/'
+import { useFuel } from '../../hooks'
 
-const Home = ({ navigation }) => {
-  const { getRegister } = useVehicle()
+const Home = () => {
+  const { getFuel } = useFuel()
 
   useEffect(() => {
-    getRegister()
+    getFuel()
   }, [])
 
   return (
-    <View>
+    <ScrollView>
       <Title>
         <Icon name='car' size={24} color='#000' /> Dados do veiculo
       </Title>
       <Vehicle />
-    </View>
+      <Title>
+        <Icon name='map-pin' size={24} color='#000' /> Consumo do veiculo
+      </Title>
+      <ConsumptionChart />
+    </ScrollView>
   )
 }
 

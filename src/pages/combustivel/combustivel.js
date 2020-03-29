@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { ScrollView, StyleSheet } from 'react-native';
 import DatePicker from 'react-native-date-picker'
 import RNPickerSelect from 'react-native-picker-select'
@@ -39,17 +39,13 @@ const pickerSelectStyles = StyleSheet.create({
 });
 
 const Combustivel = () => {
-  const { saveFuel, getFuel } = useFuel()
+  const { saveFuel } = useFuel()
   const [liters, setLiters] = useState('')
   const [km, setKm] = useState('')
   const [value, setValue] = useState('')
   const [date, setDate] = useState(new Date())
   const [post, setPost] = useState('')
   const [average, setAverage] = useState(0.00)
-
-  useEffect(() => {
-    getFuel()
-  }, [])
 
   const handleSave = () => {
     const data = {

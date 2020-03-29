@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   Container,
   TextVehicle,
@@ -8,7 +8,11 @@ import { Icon } from '../../componentes/'
 import { useVehicle } from '../../hooks'
 
 const Vehicle = () => {
-  const { vehicleDate, loaderVehicle } = useVehicle()
+  const { vehicleDate, loaderVehicle, getRegister } = useVehicle()
+
+  useEffect(() => {
+    getRegister()
+  }, [])
 
   return (
     <>
